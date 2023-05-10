@@ -61,7 +61,7 @@ def tokenize_text(input_file_path, output_file_path):
     with open(input_file_path, 'r') as inpt:
         inp = nlp(inpt.read())
     with open(output_file_path, 'w') as output:
-        for token in inp:
+        for token in inp:  # looping through all the tokens to present information
             output.write(f"{token.text:{10}}{token.pos_:{10}}{token.dep_:{10}}")
 
 

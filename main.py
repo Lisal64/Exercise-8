@@ -17,8 +17,7 @@ def write_to_file(text: str, output_file_path):
 
 
 def count_stopwords(input_file_path):
-    nlp = spacy.load(
-        r'C:\Users\lisal\AppData\Local\Programs\Python\Python311\Lib\site-packages\en_core_web_sm\en_core_web_sm-3.5.0')
+    nlp = spacy.load('en_core_web_sm')
     # I have to load it like that, as the other way raises an error and this is the only way I could find to fix it
     with open(input_file_path) as inpt:
         inp = nlp(inpt.read())  # feeding the text into the doc at the same time as reading it
@@ -35,11 +34,13 @@ def count_stopwords(input_file_path):
         return 0
 
 
+count_stopwords('test.txt')
+
+
 # Exercise 3
 
 def remove_stopwords(input_file_path, output_file_path):
-    nlp = spacy.load(
-        r'C:\Users\lisal\AppData\Local\Programs\Python\Python311\Lib\site-packages\en_core_web_sm\en_core_web_sm-3.5.0')
+    nlp = spacy.load('en_core_web_sm')
     with open(input_file_path, 'r') as inpt:
         inp = list(nlp(inpt.read()))  # need to turn it into a list to loop through it
     rem_stop = []
@@ -56,20 +57,26 @@ remove_stopwords('test.txt', 'rem_test.txt')
 # Exercise 4
 
 def tokenize_text(input_file_path, output_file_path):
-    nlp = spacy.load(
-        r'C:\Users\lisal\AppData\Local\Programs\Python\Python311\Lib\site-packages\en_core_web_sm\en_core_web_sm-3.5.0')
+    nlp = spacy.load('en_core_web_sm')
     with open(input_file_path, 'r') as inpt:
-        inp = nlp(inpt.read())
+        inp = nlp(inpt.read())  # converting it into a doc
     with open(output_file_path, 'w') as output:
-        for token in inp:  # looping through all the tokens to present information
-            output.write(f"{token.text:{10}}{token.pos_:{10}}{token.dep_:{10}}")
+        for token in inp:
+            output.write(f"{token.text:{10}}{token.pos_:{10}}{token.dep_:{10}} \n")  # adding newline to make it readable
 
+
+tokenize_text('test.txt', 'token.txt')
 
 # Exercise 5
 
+
 def save_visualization(input_file_path, output_file_path):
+    nlp = spacy.load('en_core_web_sm')
     with open(input_file_path, 'r') as inpt:
-        inp = inpt.read()
+        inp = nlp(inpt.read())  # converting it into a doc
     with open(output_file_path, 'w') as output:
         output.write(f"{displacy.render(inp)}")
+
+
+save_visualization('test.txt', 'visual.svg')
 
